@@ -62,16 +62,6 @@
                     </p>
                 </div>
 
-                <div>
-                    <label for="studentID" class="block text-sm font-semibold text-gray-700 mb-1">Student ID Number (Optional)</label>
-                    <input 
-                        type="text" 
-                        id="studentID" 
-                        placeholder="e.g., 12345678" 
-                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus-ring-cuny-blue focus:border-transparent transition-shadow text-gray-900"
-                    >
-                </div>
-
                 <button 
                     onclick="generateEmail()" 
                     class="w-full bg-cuny-blue hover-bg-cuny-blue-dark text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center group"
@@ -104,7 +94,6 @@
         function generateEmail() {
             const nameInput = document.getElementById('studentName');
             const name = nameInput.value.trim();
-            const studentID = document.getElementById('studentID').value.trim();
             const errorMsg = document.getElementById('errorMessage');
 
             // Custom validation instead of alert()
@@ -120,11 +109,16 @@
                 "Maintenance Request: L Building Restrooms and Water Fountains",
                 "Urgent: L Building Facilities Need Attention",
                 "Library Facility Outages: Restrooms and Water",
-                "Fix Request: L Building Water Fountains and Student Restrooms"
+                "Fix Request: L Building Water Fountains and Student Restrooms",
+                "L Building Maintenance Needed: Water and Restrooms",
+                "Campus Facilities Request: L Building Outages",
+                "Attention Required: L Building Library Restrooms",
+                "Student Request: Fixing L Building Amenities"
             ];
             
-            // Pick a random subject
-            const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
+            // Pick a random subject and append the student's name for uniqueness
+            const baseSubject = subjects[Math.floor(Math.random() * subjects.length)];
+            const randomSubject = `${baseSubject} - ${name}`;
 
             // Construct the email body
             let bodyText = `Dear Campus Facilities Team,
@@ -141,10 +135,6 @@ I kindly ask that work orders be prioritized to repair the broken facilities and
 
 Best regards,
 ${name}`;
-
-            if (studentID) {
-                bodyText += `\nStudent ID: ${studentID}`;
-            }
 
             // Target Emails
             const toEmail = "Service.Issues@kbcc.cuny.edu";
