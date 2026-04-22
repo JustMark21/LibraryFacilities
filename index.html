@@ -168,7 +168,6 @@ ${name}`;
                 subject: randomSubject,
                 body: bodyText,
                 toEmail: "Service.Issues@kbcc.cuny.edu",
-                ccEmail: "KCC_StudentLife@kbcc.cuny.edu"
             };
         }
 
@@ -191,7 +190,7 @@ ${name}`;
             const encodedBody = encodeURIComponent(content.body);
 
             // Build the mailto link
-            const mailtoLink = `mailto:${content.toEmail}?cc=${content.ccEmail}&subject=${encodedSubject}&body=${encodedBody}`;
+            const mailtoLink = `mailto:${content.toEmail}?subject=${encodedSubject}&body=${encodedBody}`;
 
             // Redirect the browser to open the email client
             window.location.href = mailtoLink;
@@ -212,7 +211,7 @@ ${name}`;
             const content = getEmailContent(name);
             
             // Format the text nicely for someone copying and pasting
-            const fullTextToCopy = `To: ${content.toEmail}\nCC: ${content.ccEmail}\nSubject: ${content.subject}\n\n${content.body}`;
+            const fullTextToCopy = `To: ${content.toEmail}\nSubject: ${content.subject}\n\n${content.body}`;
 
             // Create a temporary hidden text area to use the universal execCommand('copy') method
             const textArea = document.createElement("textarea");
