@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBCC L-Building Facilities Fix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CUNY Blue Color Configuration */
+        html {
+            background-color: #f4f7f6;
+        }
+        .cuny-blue {
+            color: #0033a0;
+        }
+        .bg-cuny-blue {
+            background-color: #0033a0;
+        }
+        .hover-bg-cuny-blue-dark:hover {
+            background-color: #002277;
+        }
+        .focus-ring-cuny-blue:focus {
+            --tw-ring-color: #0033a0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-8 font-sans text-gray-800">
+
+    <div class="max-w-lg w-full bg-white rounded-2xl shadow-xl overflow-hidden transition-all">
+        <!-- Header Image / Accent -->
+        <div class="h-2 bg-cuny-blue w-full"></div>
+        
+        <div class="p-6 sm:p-8">
+            <!-- Header Section -->
+            <div class="text-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto cuny-blue mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <h1 class="text-2xl font-bold cuny-blue mb-2">Help Fix the Library Facilities</h1>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    The L Building currently has no working water fountains and only one accessible student restroom. Fill out the form below to help us respectfully ask Campus Facilities to fix these issues so we can study in peace.
+                </p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="space-y-5">
+                <div>
+                    <label for="studentName" class="block text-sm font-semibold text-gray-700 mb-1">Your Full Name (Required)</label>
+                    <input 
+                        type="text" 
+                        id="studentName" 
+                        placeholder="e.g., Jane Doe" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus-ring-cuny-blue focus:border-transparent transition-shadow text-gray-900"
+                        oninput="clearError()"
+                    >
+                    <!-- Custom Error Message (Hidden by default) -->
+                    <p id="errorMessage" class="hidden text-red-500 text-xs mt-1 font-medium flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        Please enter your name before generating the email.
+                    </p>
+                </div>
+
+                <div>
+                    <label for="studentID" class="block text-sm font-semibold text-gray-700 mb-1">Student ID Number (Optional)</label>
+                    <input 
+                        type="text" 
+                        id="studentID" 
+                        placeholder="e.g., 12345678" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus-ring-cuny-blue focus:border-transparent transition-shadow text-gray-900"
+                    >
+                </div>
+
+                <button 
+                    onclick="generateEmail()" 
+                    class="w-full bg-cuny-blue hover-bg-cuny-blue-dark text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center group"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Generate & Open Email
+                </button>
+            </div>
+
+            <!-- Disclaimer Section -->
+            <div class="mt-8 bg-gray-50 rounded-lg p-4 border border-gray-100">
+                <p class="text-xs text-gray-500 text-center leading-relaxed">
+                    <strong class="text-gray-700 font-semibold block mb-1">How this works:</strong> 
+                    Tapping the button above does NOT collect your personal data. It simply opens your phone or computer's default email app (like Gmail, Outlook, or Apple Mail) with a pre-written, polite message. You can review the email before you hit send.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function clearError() {
+            const nameInput = document.getElementById('studentName');
+            const errorMsg = document.getElementById('errorMessage');
+            nameInput.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+            errorMsg.classList.add('hidden');
+        }
+
+        function generateEmail() {
+            const nameInput = document.getElementById('studentName');
+            const name = nameInput.value.trim();
+            const studentID = document.getElementById('studentID').value.trim();
+            const errorMsg = document.getElementById('errorMessage');
+
+            // Custom validation instead of alert()
+            if (!name) {
+                nameInput.classList.add('border-red-500', 'ring-1', 'ring-red-500');
+                errorMsg.classList.remove('hidden');
+                nameInput.focus();
+                return;
+            }
+
+            // Array of subject lines to randomize (prevents spam filters from blocking the emails)
+            const subjects = [
+                "Maintenance Request: L Building Restrooms and Water Fountains",
+                "Urgent: L Building Facilities Need Attention",
+                "Library Facility Outages: Restrooms and Water",
+                "Fix Request: L Building Water Fountains and Student Restrooms"
+            ];
+            
+            // Pick a random subject
+            const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
+
+            // Construct the email body
+            let bodyText = `Dear Campus Facilities Team,
+
+I am writing to respectfully request maintenance attention for the facilities in the L Building (Library). Currently, access to basic amenities is severely limited, which makes it very difficult to study on campus.
+
+Specifically, we are facing these issues:
+- There are no working drinking water fountains in the L building.
+- There is only one accessible restroom for all students in the basement.
+- The 2nd-floor student restroom has been out of service since the start of the year.
+- Restrooms on floors 3, 4, 5, and 6 are either closed entirely or locked for staff use only.
+
+I kindly ask that work orders be prioritized to repair the broken facilities and that upper-floor restrooms be unlocked for student use. Thank you for your hard work in maintaining our campus.
+
+Best regards,
+${name}`;
+
+            if (studentID) {
+                bodyText += `\nStudent ID: ${studentID}`;
+            }
+
+            // Target Emails
+            const toEmail = "Service.Issues@kbcc.cuny.edu";
+            const ccEmail = "KCC_StudentLife@kbcc.cuny.edu";
+
+            // Encode the subject and body to make them URL-safe
+            const encodedSubject = encodeURIComponent(randomSubject);
+            const encodedBody = encodeURIComponent(bodyText);
+
+            // Build the mailto link
+            const mailtoLink = `mailto:${toEmail}?cc=${ccEmail}&subject=${encodedSubject}&body=${encodedBody}`;
+
+            // Redirect the browser to open the email client
+            window.location.href = mailtoLink;
+        }
+    </script>
+</body>
+</html>
